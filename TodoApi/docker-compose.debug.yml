@@ -11,8 +11,9 @@ services:
       args:
         - configuration=Debug
     ports:
-      - 5226:5226
+      - 80:80
+      - 443:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
-      - ~/.vsdbg:c:\remote_debugger:rw
+      - ~/.vsdbg:/remote_debugger:rw
