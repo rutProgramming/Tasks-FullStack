@@ -1,29 +1,61 @@
 import axios from 'axios';
 
-const apiUrl = "http://localhost:5226"
+// הגדרת baseURL מהסביבה
+axios.defaults.baseURL = process.env.REACT_APP_API_URL; 
 
-export default {
+// Interceptor לתפיסת שגיאות בתגובה
+axios.interceptors.response.use(
+  response => response, 
+  error => {
+      console.error('Error in response:', error); 
+      return Promise.reject(error); 
+  }
+);
+
+// פונקציות API
+const api = {
   getTasks: async () => {
-    
-    const result = await axios.get(`${apiUrl}/items`)    
-    return result.data;
+    try {
+      const response = await axios.get('/items'); 
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      throw error;
+    }
   },
 
-  addTask: async(name)=>{
-    console.log('addTask', name)
-    const result = await axios.post(`${apiUrl}/items`,{name})    
-    return result;    
+  addTask: async (name) => {
+    try {
+      console.log('addTask', name);
+      const result = await axios.post('/items', { name });
+      return result.data;
+    } catch (error) {
+      console.error('Failed to add task:', error);
+      throw error;
+    }
   },
 
-  setCompleted: async(id, isComplete)=>{
-    console.log('setCompleted', {id, isComplete})
-    const result = await axios.put(`${apiUrl}/items/${id}`,{isComplete});    
-    return result;  
+  setCompleted: async (id, isComplete) => {
+    try {
+      console.log('setCompleted', { id, isComplete });
+      const result = await axios.put(`/items/${id}`, { isComplete });
+      return result.data;
+    } catch (error) {
+      console.error('Failed to update task:', error);
+      throw error;
+    }
   },
 
-  deleteTask:async(id)=>{
-    console.log('deleteTask')
-    const result = await axios.delete(`${apiUrl}/items/${id}`)    
-    return result;
+  deleteTask: async (id) => {
+    try {
+      console.log('deleteTask', id);
+      const result = await axios.delete(`/items/${id}`);
+      return result.data;
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+      throw error;
+    }
   }
 };
+
+export default api;
