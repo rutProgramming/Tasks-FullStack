@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApi;
 using Microsoft.OpenApi;
-using Microsoft.EntityFrameworkCore;
-using TodoApi;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +30,7 @@ app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
 app.MapControllers();
 
+app.MapGet("/",() => "welcome to our server");
 
 app.MapGet("/items", async (ToDoDbContext dbContext) =>
 {
