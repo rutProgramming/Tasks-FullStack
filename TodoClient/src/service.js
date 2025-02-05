@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // הגדרת baseURL מהסביבה
+require('dotenv').config();
 axios.defaults.baseURL = process.env.REACT_APP_API_URL; 
 
 // Interceptor לתפיסת שגיאות בתגובה
