@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // הגדרת baseURL מהסביבה
-require('dotenv').config();
-axios.defaults.baseURL = process.env.REACT_APP_API_URL; 
 
-// Interceptor לתפיסת שגיאות בתגובה
+ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
+
 axios.interceptors.response.use(
   response => response, 
   error => {
@@ -16,6 +16,7 @@ axios.interceptors.response.use(
 // פונקציות API
 const api = {
   getTasks: async () => {
+    console.log(process.env.REACT_APP_API_URL)
     try {
       const response = await axios.get('/items'); 
       return response.data;

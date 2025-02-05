@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi;
 using Microsoft.OpenApi;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
@@ -34,8 +32,13 @@ app.MapGet("/",() => "welcome to our server");
 
 app.MapGet("/items", async (ToDoDbContext dbContext) =>
 {
+    try{
     var results = await dbContext.Items.ToListAsync();
     return Results.Ok(results);
+    }
+    catch (Exception e){
+        Console.WriteLine(e);
+    }
 });
 
 
