@@ -38,11 +38,7 @@ app.MapGet("/items", async (ToDoDbContext dbContext) =>
     return Results.Ok(results);
 });
 
-// app.MapGet("/items/{id}", async (int id, ToDoDbContext db) =>
-//     await db.Items.FindAsync(id)
-//         is Item item
-//             ? Results.Ok(item)
-//             : Results.NotFound());
+
 
 app.MapPost("/items", async (Item TaskName, ToDoDbContext db) =>
     {

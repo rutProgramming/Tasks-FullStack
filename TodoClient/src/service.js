@@ -21,7 +21,6 @@ const api = {
       return response.data;
     } catch (error) {
       console.error('Failed to fetch tasks:', error);
-      throw error;
     }
   },
 
@@ -32,7 +31,6 @@ const api = {
       return result.data;
     } catch (error) {
       console.error('Failed to add task:', error);
-      throw error;
     }
   },
 
