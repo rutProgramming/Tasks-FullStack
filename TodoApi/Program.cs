@@ -29,16 +29,15 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+
+// Enable Swagger in development mode
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    // Enable Swagger in development mode
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
-        c.RoutePrefix = string.Empty; // Swagger UI will open at the root URL
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
+    c.RoutePrefix = string.Empty; // Swagger UI will open at the root URL
+});
+
 
 // Middleware pipeline
 app.UseCors("AllowAllOrigins");
