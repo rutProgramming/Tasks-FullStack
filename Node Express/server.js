@@ -1,21 +1,14 @@
-import axios from 'axios';
-import https from 'https';
-import dotenv from 'dotenv';
+const express = require('express');
+const app = express();
 
-dotenv.config();
+const PORT = process.env.PORT || 3000; 
+console.log(` Render assigned PORT: ${PORT}`);
 
-const API_KEY = process.env.RENDER_API_KEY;
-
-// יצירת סוכן מותאם אישית שמתעלם מבעיות אישור (פחות מסוכן מביטול מוחלט)
-const agent = new https.Agent({  
-  rejectUnauthorized: false 
+app.get('/', (req, res) => {
+    res.send('Welcome to our API!');
 });
 
-axios.get('https://api.render.com/v1/services', {
-  headers: { Authorization: `Bearer ${API_KEY}` },
-  httpsAgent: agent  
-})
-.then(response => console.log(response.data))
-.catch(error => console.error(error));
-
-console.log(" Render assigned PORT:", process.env.PORT);
+// ודאי שהשרת מאזין לפורט שהוקצה
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on port ${PORT}`);
+});
