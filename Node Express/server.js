@@ -17,3 +17,5 @@ axios.get('https://api.render.com/v1/services', {
 })
 .then(response => console.log(response.data))
 .catch(error => console.error(error));
+
+console.log(" Render assigned PORT:", process.env.PORT);
