@@ -6,7 +6,7 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
 const API_KEY = process.env.RENDER_API_KEY;
 
 if (!API_KEY) {
@@ -27,3 +27,7 @@ app.get('/', async (req, res) => {
   }
 });
 
+// הוספת הקוד להרצת השרת
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+});
