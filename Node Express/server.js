@@ -1,22 +1,29 @@
+import express from 'express';
 import axios from 'axios';
-import https from 'https';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
-const API_KEY = process.env.RENDER_API_KEY;
-const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.RENDER_API_KEY;
 
-const PORT = process.env.PORT || 3000; 
-// יצירת סוכן מותאם אישית שמתעלם מבעיות אישור (פחות מסוכן מביטול מוחלט)
-const agent = new https.Agent({  
-  rejectUnauthorized: false 
+if (!API_KEY) {
+  console.error("❌ API Key is missing! Add it to your .env file.");
+  process.exit(1);
+}
+
+app.use(cors());
+
+app.get('/', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.render.com/v1/services', {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json(error.response?.data || { error: "Unknown error" });
+  }
 });
 
-axios.get('https://api.render.com/v1/services', {
-  headers: { Authorization: `Bearer ${API_KEY}` },
-  httpsAgent: agent  
-})
-.then(response => console.log(response.data))
-.catch(error => console.error(error));
